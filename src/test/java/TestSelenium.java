@@ -99,12 +99,12 @@ public class TestSelenium {
 //            "определенного товара. Необходим переход в корзину для этого.")
 //
 //
-//    @Test(priority = 11, description = "Вернуться на страницу \"Виниловые пластинки\".")
-//    public void back() {
-//        driver.navigate().back();
-//        driver.navigate().back();
-//
-//    }
+    @Test(priority = 11, description = "Вернуться на страницу \"Виниловые пластинки\".")
+    public void back() {
+        driver.navigate().back();
+        driver.navigate().back();
+
+    }
 //
 //
 //    @Test(priority = 12, description = " Сгенерировать случайное число в диапазоне от 1 до количества товаров, полученного в\n" +
