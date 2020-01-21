@@ -1,9 +1,7 @@
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,8 +16,11 @@ public class TestSelenium {
     private Integer amount;
     private Integer firstRandomNumber;
     private Integer secondRandomNumber;
-    private String  firstName;
-    private Integer firstPrice;
+
+    private String firstName;
+    private String firstPrice;
+    private String secondName;
+    private String secondPrice;
 
 
     @Test(priority = 1, description = "Открыть в браузере сайт https://www.ozon.ru/.")
@@ -54,7 +55,7 @@ public class TestSelenium {
     @Test(priority = 4, description = "Проверить, что открылся список товаров.")
     public void truePage() {
         List<WebElement> webElements = driver.findElementsByXPath("//div[@class = 'a1f8 a1g6 a1g']");
-        Assert.assertTrue(webElements.size() > 30);
+        Assert.assertTrue(webElements.size() > 10);
 
     }
 
@@ -74,66 +75,92 @@ public class TestSelenium {
     }
 
     @Test(priority = 7, description = "Выбрать товар под номером, полученным в п.6. ( Перейти на страницу товара )")
-    public void getProductByNumber() {
-        String xPath="//div[@class = 's4']/div["+firstRandomNumber+"]";
+    public void getProductByFirstNumber() {
+        String xPath = "//div[@class = 's4']/div[" + firstRandomNumber + "]";
         driver.findElementByXPath(xPath).click();
         System.out.println(xPath);
 
 
     }
 
-        @Test(priority = 8,description = "Запомнить стоимость и название данного товара.")
-    public void saveProduct(){
-        firstName=driver.findElementByXPath("//div[@class='b2s1']/h1[text()]").getText();
-            System.out.println(firstName);
-        }
-//
-//
-//
-//
-//    @Test(priority = 9,description ="Добавить товар в корзину." )
-//
-//
-//
-//    @Test(priority = 10,description = "Проверить то, что в корзине появился добавленный в п.9 товар. ( Проверка данных\n" +
-//            "определенного товара. Необходим переход в корзину для этого.")
-//
-//
+    @Test(priority = 8, description = "Запомнить стоимость и название данного товара.")
+    public void saveFirstProduct() {
+        firstName = driver.findElementByCssSelector(".b2s1 > span:nth-child(1)").getText();
+        firstPrice = driver.findElementByCssSelector(".b2y5").getText();
+        System.out.println(firstName);
+    }
+
+    @Test(priority = 9, description = "Добавить товар в корзину.")
+    public void sendInBasketFirstProduct() {
+        driver.findElementByCssSelector(".b3u4 > button:nth-child(1) > div:nth-child(1)").click();
+    }
+
+
+    @Test(priority = 10, description = "Проверить то, что в корзине появился добавленный в п.9 товар. ( Проверка данных\n" +
+            "определенного товара. Необходим переход в корзину для этого.")
+    public void checkBasket() throws InterruptedException {
+        Thread.sleep(500);
+        driver.findElementByCssSelector(".b1k5").click();
+    }
+
+
     @Test(priority = 11, description = "Вернуться на страницу \"Виниловые пластинки\".")
-    public void back() {
+    public void back() throws InterruptedException {
         driver.navigate().back();
+        Thread.sleep(500);
         driver.navigate().back();
 
     }
-//
-//
-//    @Test(priority = 12, description = " Сгенерировать случайное число в диапазоне от 1 до количества товаров, полученного в\n" +
-//            "п.5")
-//    public void generateSecondRandomNumber() {
-//        secondRandomNumber = Utill.randomizer(amount);
-//        System.out.println(secondRandomNumber);
-//        if (secondRandomNumber == firstRandomNumber) {
-//            getProductByNumber();
-//        }
-//
 
-//    @Test(priority = 13,description = "Выбрать товар под номером, полученным в п.12. ( Перейти на страницу товара )")
-//
-//
-//
-//    @Test(priority = 14,description = "Запомнить стоимость и название данного товара.")
-//
-//
-//
-//
-//    @Test(priority = 15,description = "Добавить товар в корзину.")
-//
-//    @Test(priority = 16,description = "Проверить то, что в корзине два товара. ( Проверка количества товаров в корзине. Может\n" +
-//            "быть произведена без открытия корзины, а проверяя значение в header сайта, где указано\n" +
-//            "количество товаров в корзине )")
-//
-//
-//    @Test(priority = 17,description = "Открыть корзину.")
+
+    @Test(priority = 12, description = " Сгенерировать случайное число в диапазоне от 1 до количества товаров, полученного в\n" +
+            "п.5")
+    public void generateSecondRandomNumber() {
+        secondRandomNumber = Utill.randomizer(amount);
+        System.out.println(secondRandomNumber);
+        if (secondRandomNumber == firstRandomNumber) {
+            getProductByFirstNumber();
+        }
+    }
+
+
+    @Test(priority = 13, description = "Выбрать товар под номером, полученным в п.12. ( Перейти на страницу товара )")
+    public void getProductBySecondNumber() {
+        String xPath = "//div[@class = 's4']/div[" + secondRandomNumber + "]";
+        driver.findElementByXPath(xPath).click();
+
+    }
+
+    @Test(priority = 14, description = "Запомнить стоимость и название данного товара.")
+    public void saveSecondProduct() {
+        secondName = driver.findElementByCssSelector(".b2s1 > span:nth-child(1)").getText();
+        secondPrice = driver.findElementByCssSelector(".b2y5").getText();
+        System.out.println(secondName);
+    }
+
+
+    @Test(priority = 15, description = "Добавить товар в корзину.")
+    public void sendInBasketSecondProduct() {
+        driver.findElementByCssSelector(".b3u4 > button:nth-child(1) > div:nth-child(1)").click();
+    }
+
+
+    @Test(priority = 16, description = "Проверить то, что в корзине два товара. ( Проверка количества товаров в корзине. Может\n" +
+            "быть произведена без открытия корзины, а проверяя значение в header сайта, где указано\n" +
+            "количество товаров в корзине )")
+    public void checkBasketByHeader() {
+        driver.navigate().back();
+        String count = driver.findElementByCssSelector("a.a0s1:nth-child(4)").getText();
+
+        Assert.assertEquals(count, "2");
+    }
+
+    @Test(priority = 17, description = "Открыть корзину.")
+    public void inBasket() {
+
+        driver.findElementByCssSelector(".b1k5").click();
+    }
+
 //
 //    @Test(priority = 18,description = "Проверить то, что в корзине раннее выбранные товары и итоговая стоимость по двум\n" +
 //            "товарам рассчитана верно.")
