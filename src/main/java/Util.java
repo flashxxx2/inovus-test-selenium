@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Utill {
+public class Util {
 
 
     /**
