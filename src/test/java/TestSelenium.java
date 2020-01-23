@@ -44,7 +44,7 @@ public class TestSelenium {
     @Test(priority = 2, description = "В меню \"Каталог\" выбрать категорию \"Музыка\".")
     public void findMusic() {
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@value='Каталог']")));
         driver.findElementByXPath("//button[@value='Каталог']").click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Музыка')]")));
@@ -62,7 +62,7 @@ public class TestSelenium {
     public void openVinil() {
 
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Виниловые пластинки')]")));
         driver.findElementByXPath("//a[contains(text(),'Виниловые пластинки')]").click();
 
@@ -76,7 +76,7 @@ public class TestSelenium {
     @Test(priority = 4, description = "Проверить, что открылся список товаров.")
     public void truePage() {
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/span[@data-test-id='tile-name']")));
         List<WebElement> webElements = driver.findElementsByXPath("//div/span[@data-test-id='tile-name']");
         Assert.assertTrue(webElements.size() > 20);
@@ -90,7 +90,7 @@ public class TestSelenium {
      */
 
     @Test(priority = 5, description = "Сгенерировать случайное число в диапазоне от 1 до количества товаров, полученного в п.5")
-    public void generateFirstRandomNumber() throws InterruptedException {
+    public void generateFirstRandomNumber() {
 
         firstRandomNumber = Util.randomizer(amount);
         if (firstRandomNumber > amount || firstRandomNumber == 0) {
@@ -109,9 +109,10 @@ public class TestSelenium {
     public void getProductByFirstNumber() {
 
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[3]/div[2]/div[2]/div[2]/div[1]/div//div[" + firstRandomNumber + "]")));
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
+
         String xPath = "//div[3]/div[2]/div[2]/div[2]/div[1]/div//div[" + firstRandomNumber + "]";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
         driver.findElementByXPath(xPath).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -122,7 +123,7 @@ public class TestSelenium {
 
     @Test(priority = 7, description = "Запомнить стоимость и название данного товара.")
     public void saveFirstProduct() {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[1]/div/h1/span")));
 
         firstName = driver.findElementByXPath("//div[1]/div/h1/span").getText();
@@ -138,7 +139,7 @@ public class TestSelenium {
 
     @Test(priority = 8, description = "Добавить товар в корзину.")
     public void sendInBasketFirstProduct() {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[1]/div[2]/div/div/div[1]/button/div")));
         driver.findElementByXPath("//div[1]/div[2]/div/div/div[1]/button/div").click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -152,7 +153,7 @@ public class TestSelenium {
             "( Проверка данных определенного товара. Необходим переход в корзину для этого.")
     public void checkBasket() {
         driver.navigate().refresh();
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Корзина')]")));
         driver.findElementByXPath("//span[contains(text(),'Корзина')]").click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[3]/div[2]/a/span")));
@@ -199,7 +200,7 @@ public class TestSelenium {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
         String xPath = "//div[2]/div[2]/div[1]/div/div/div[" + secondRandomNumber + "]";
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
         driver.findElementByXPath(xPath).click();
         Thread.sleep(1000);
@@ -226,7 +227,7 @@ public class TestSelenium {
     @Test(priority = 14, description = "Добавить товар в корзину.")
     public void sendInBasketSecondProduct() throws InterruptedException {
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/div[1]/div[2]/div/div/div[1]/button/div")));
         Thread.sleep(500);
         driver.findElementByXPath("//div/div[1]/div[2]/div/div/div[1]/button/div").click();
@@ -241,7 +242,7 @@ public class TestSelenium {
 
 
         driver.navigate().back();
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//header/div[1]/div[4]/a[2]/span[1]")));
         driver.navigate().refresh();
         String count = driver.findElementByXPath("//header/div[1]/div[4]/a[2]/span[1]").getText();
@@ -256,7 +257,7 @@ public class TestSelenium {
     @Test(priority = 16, description = "Открыть корзину.")
     public void openBasket() {
 
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[2]/span[2]")));
         driver.findElementByXPath("//a[2]/span[2]").click();
 
@@ -270,7 +271,7 @@ public class TestSelenium {
     @Test(priority = 17, description = "Проверить то, что в корзине раннее выбранные товары и итоговая стоимость по двум товарам рассчитана верно.")
     public void checkNameAndPriceProductsInBasket() throws InterruptedException {
         Thread.sleep(800);
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         WebElement parent = driver.findElement(By.xpath("//div[5]/div[1]/div[1]/div/div[2]"));
 
         List<WebElement> elements = parent.findElements(By.xpath("div/div/a/span"));
@@ -289,7 +290,7 @@ public class TestSelenium {
 
     @Test(priority = 18, description = "Удалить из корзины все товары.")
     public void deleteAllProductsInBasket() {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Удалить выбранные')]")));
 
         driver.findElementByXPath("//span[contains(text(),'Удалить выбранные')]").click();
@@ -303,7 +304,7 @@ public class TestSelenium {
 
     @Test(priority = 19, description = "Проверить, что корзина пуста.")
     public void checkEmptyBasket() {
-        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(),'Корзина пуста')]")));
 
         String empty = driver.findElementByXPath("//h1[contains(text(),'Корзина пуста')]").getText();
