@@ -202,6 +202,8 @@ public class TestSelenium {
         WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
         driver.findElementByXPath(xPath).click();
+        Thread.sleep(1000);
+
 
     }
 
@@ -269,7 +271,7 @@ public class TestSelenium {
     public void checkNameAndPriceProductsInBasket() throws InterruptedException {
         Thread.sleep(800);
         WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
-       // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[5]/div[1]/div[1]/div/div[2]")));
+        // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[5]/div[1]/div[1]/div/div[2]")));
 
         WebElement parent = driver.findElement(By.xpath("//div[5]/div[1]/div[1]/div/div[2]"));
 
