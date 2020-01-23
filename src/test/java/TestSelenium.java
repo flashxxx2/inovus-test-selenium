@@ -96,7 +96,7 @@ public class TestSelenium {
         if (firstRandomNumber > amount || firstRandomNumber == 0) {
             generateFirstRandomNumber();
         }
-        System.out.println(firstRandomNumber);
+
 
 
     }
@@ -186,7 +186,7 @@ public class TestSelenium {
             generateSecondRandomNumber();
         }
 
-        System.out.println(secondRandomNumber);
+
 
     }
 
@@ -254,7 +254,7 @@ public class TestSelenium {
      */
 
     @Test(priority = 16, description = "Открыть корзину.")
-    public void openBasket() throws InterruptedException {
+    public void openBasket() {
 
         WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[2]/span[2]")));
@@ -271,8 +271,6 @@ public class TestSelenium {
     public void checkNameAndPriceProductsInBasket() throws InterruptedException {
         Thread.sleep(800);
         WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
-        // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[5]/div[1]/div[1]/div/div[2]")));
-
         WebElement parent = driver.findElement(By.xpath("//div[5]/div[1]/div[1]/div/div[2]"));
 
         List<WebElement> elements = parent.findElements(By.xpath("div/div/a/span"));
