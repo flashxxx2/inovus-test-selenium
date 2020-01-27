@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import org.openqa.selenium.json.JsonOutput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -96,6 +97,7 @@ public class TestSelenium {
         if (firstRandomNumber > amount || firstRandomNumber == 0) {
             generateFirstRandomNumber();
         }
+        System.out.println(firstRandomNumber);
 
 
 
@@ -111,7 +113,7 @@ public class TestSelenium {
 
         WebDriverWait wait = new WebDriverWait(driver, 15, 1000);
 
-        String xPath = "//div[3]/div[2]/div[2]/div[2]/div[1]/div//div[" + firstRandomNumber + "]";
+        String xPath = "//div[2]/div[1]/div[1]/div/div[" + firstRandomNumber + "]";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
         driver.findElementByXPath(xPath).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
